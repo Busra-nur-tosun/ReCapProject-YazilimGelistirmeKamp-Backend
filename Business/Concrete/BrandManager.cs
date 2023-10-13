@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -17,35 +19,54 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
+        
+        public IResult Add(Brand brand)
+        {
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.SuccessAdded);
+        }
 
-        public void Add(Brand brand)
+        public IResult Delete(Brand brand)
+        {
+            _brandDal.Delete(brand);
+            return new SuccessResult(Messages.SuccessDeleted);
+        }
+
+        public IDataResult<List<Brand>> GetAll()
+        {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.SuccessListed);
+
+        }
+
+        public IDataResult<Brand> GetBrandById(int brandId)
+        {
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId), Messages.SuccessListed);
+        }
+
+        public IResult GetById(int brandId)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Brand brand)
+        public IResult Update(Brand brand)
         {
-            _brandDal.Delete(brand);
+            _brandDal.Update(brand);
+            return new SuccessResult(Messages.SuccessUpdated);
         }
 
-        public List<Brand> GetAll(Brand brand)
+        IDataResult<List<Brand>> IBrandService.Add(Brand brand)
         {
-           return   _brandDal.GetAll();
+            throw new NotImplementedException();
         }
 
-        public List<Brand> GetAll()
+        IDataResult<List<Brand>> IBrandService.Delete(Brand brand)
         {
-            return _brandDal.GetAll();
+            throw new NotImplementedException();
         }
 
-        public Brand GetById(int id)
+        IDataResult<List<Brand>> IBrandService.Update(Brand brand)
         {
-            return _brandDal.Get(b => b.BrandId == id);
-        }
-
-        public void Update(Brand brand)
-        {
-           _brandDal.Update(brand);
+            throw new NotImplementedException();
         }
     }
 }

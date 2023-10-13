@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -18,29 +20,55 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+       
+        public IResult Add(Color color)
         {
             _colorDal.Add(color);
+            return new SuccessResult(Messages.SuccessAdded);
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
+            return new SuccessResult(Messages.SuccessDeleted);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.SuccessListed);
+
         }
 
-        public Color GetById(int id)
+        public IResult GetById(int colorId)
         {
-            return _colorDal.Get(c => c.ColorId == id);
+            throw new NotImplementedException();
         }
 
-        public void Update(Color color)
+        public IDataResult<Color> GetColorById(int colorId)
+        {
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == colorId), Messages.SuccessListed);
+        }
+
+       
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
+            return new SuccessResult(Messages.SuccessUpdated);
+        }
+
+        IDataResult<List<Color>> IColorService.Add(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<List<Color>> IColorService.Delete(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<List<Color>> IColorService.Update(Color color)
+        {
+            throw new NotImplementedException();
         }
     }
 }

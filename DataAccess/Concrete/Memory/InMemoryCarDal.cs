@@ -49,7 +49,9 @@ namespace DataAccess.Concrete.Memory
 
         public List<CarDetailDto> GetCarDetails()
         {
-            throw new NotImplementedException();
+            List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
+            carDetailDtos.Add(new CarDetailDto {CarName="audi",DailyPrice=800});
+            return carDetailDtos;
         }
 
         public List<Car> GetId(int carId)
