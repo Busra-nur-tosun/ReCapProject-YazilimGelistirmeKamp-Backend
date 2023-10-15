@@ -23,50 +23,36 @@ namespace Business.Concrete
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
-            return new SuccessResult(Messages.SuccessAdded);
+            return new SuccessResult(Messages.BrandAdded);
         }
 
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            return new SuccessResult(Messages.SuccessDeleted);
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.SuccessListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
 
         }
 
         public IDataResult<Brand> GetBrandById(int brandId)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId), Messages.SuccessListed);
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId), Messages.BrandListed);
         }
 
-        public IResult GetById(int brandId)
+        public IDataResult<Brand> GetById(int brandId)
         {
             throw new NotImplementedException();
         }
+
 
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            return new SuccessResult(Messages.SuccessUpdated);
-        }
-
-        IDataResult<List<Brand>> IBrandService.Add(Brand brand)
-        {
-            throw new NotImplementedException();
-        }
-
-        IDataResult<List<Brand>> IBrandService.Delete(Brand brand)
-        {
-            throw new NotImplementedException();
-        }
-
-        IDataResult<List<Brand>> IBrandService.Update(Brand brand)
-        {
-            throw new NotImplementedException();
+            return new SuccessResult(Messages.BrandUpdated);
         }
     }
 }
