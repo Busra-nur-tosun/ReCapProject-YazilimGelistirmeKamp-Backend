@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Core.Utilities.Business
 {
-    class Customer
+    public class BusinessRules
     {
     }
 }

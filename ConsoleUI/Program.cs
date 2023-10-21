@@ -34,13 +34,13 @@ internal class Program
         Console.WriteLine(result.Message);
     }
 
-    private static void UserAddTest()
-    {
-        UserManager userManager = new UserManager(new EfUserDal());
+    //private static void UserAddTest()
+    //{
+    //    UserManager userManager = new UserManager(new EfUserDal());
 
-        var result = userManager.Add(new User { FirstName = "Büşra", LastName = "Bebek"});
-        Console.WriteLine(result.Message);
-    }
+    //    var result = userManager.Add(new User { UsersId = 3, FirstName = "büşra", LastName = "bebek", Email = "btn@gmail.com", });
+    //    Console.WriteLine(result.me);
+    //}
 
     private static void CarTest()
     {

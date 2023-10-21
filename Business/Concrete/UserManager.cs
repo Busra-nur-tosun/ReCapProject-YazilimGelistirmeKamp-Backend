@@ -1,6 +1,8 @@
-﻿
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Entities.Concrete;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -9,45 +11,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using User = Core.Entities.Concrete.User;
 
 namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        IUserDal _userdal;
+        IUserDal _userDal;
+
         public UserManager(IUserDal userDal)
         {
-            _userdal = userDal;
+            _userDal = userDal;
         }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
         public IResult Add(User user)
         {
-            _userdal.Add(user);
+            _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
 
-        public IResult Delete(User user)
+        public IDataResult<User> GetByMail(string email)
         {
-            _userdal.Delete(user);
-            return new SuccessResult(Messages.UserDeleted);
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+        }
+
+        public object Add(Entities.Concrete.User user)
+        {
+            throw new NotImplementedException();
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userdal.GetAll(), Messages.UsersListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
-        public IDataResult<User> GetById(int UserId)
+        public IResult Delete(User user)
         {
-            return new SuccessDataResult<User>(_userdal.Get(u => u.UsersId == UserId), Messages.UserListed);
+            _userDal.Delete(user);
+            return new SuccessResult(Messages.UserDeleted);
         }
 
         public IResult Update(User user)
         {
-            _userdal.Update(user);
+            _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
 
-        IDataResult<User> IUserService.GetById(int UserId)
+        public IDataResult<User> GetById(int id)
         {
             throw new NotImplementedException();
         }
