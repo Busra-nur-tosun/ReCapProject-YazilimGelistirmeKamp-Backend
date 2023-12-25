@@ -32,6 +32,7 @@ namespace Business.Constants
 
         //Color Messages
         public static string ColorAdded = "Renk Eklendi";
+        public static string ColorNotAdded = "Renk eklenemedi";
         public static string ColorDeleted = "Renk Silindi";
         public static string ColorUpdated = "Renk Güncellendi";
         public static string ColorsListed = "Renkler Listelendi";
@@ -67,5 +68,9 @@ namespace Business.Constants
         public static string UserAlreadyExists = "kullanıcı zaten var";
         public static string SuccessfulLogin = "başarılı giriş";
         public static string AccessTokenCreated = "token oluşturuldu";
+
+        public static string CarImagesAdded = "Resimler başarıyla eklendi";
+
+        public static string DeletedCarImages = "resimler başarıyla  silindi";
     }
 }

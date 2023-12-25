@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities
+namespace Core.Utilities.Results
 {
     public class SuccessDataResult<T> : DataResult<T>
     {
@@ -20,7 +20,7 @@ namespace Core.Utilities
         {
 
         }
-        public SuccessDataResult(IDataResult<Entities.Concrete.User> userToCheck) : base(default, true)
+        public SuccessDataResult() : base(default, true)
         {
 
         }

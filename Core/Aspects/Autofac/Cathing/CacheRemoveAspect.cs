@@ -1,10 +1,17 @@
 ﻿using Castle.DynamicProxy;
+using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
-using WebGrease;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Core.CrossCuttingConcerns;
 
-namespace Core.Aspects.Autofac.Cathing
+namespace Core.Aspects.Autofac.Caching
 {
+
     public class CacheRemoveAspect : MethodInterception
     {
         private string _pattern;

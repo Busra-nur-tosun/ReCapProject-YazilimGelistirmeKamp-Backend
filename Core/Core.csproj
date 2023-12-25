@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="CrossCuttingConcerns\Redis\" />
+    <Folder Include="Utilities\Interceptors\ImageUtilities\" />
   </ItemGroup>
 
 </Project>

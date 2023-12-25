@@ -1,12 +1,8 @@
 ﻿using Castle.DynamicProxy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Core.CrossCuttingConcerns;
 

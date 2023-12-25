@@ -1,6 +1,11 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
+using Core.Utilities.Business;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -13,39 +18,66 @@ namespace Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        IColorDal _colorDal;
-
+        IColorDal _ColorDal;
         public ColorManager(IColorDal colorDal)
         {
-            _colorDal = colorDal;
+            _ColorDal = colorDal;
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            _colorDal.Add(color);
+            IResult result = BusinessRules.Run(CheckIfColorNameExist(color.ColorName));
+            if (result != null)
+            {
+                return new ErrorResult(Messages.ColorNotAdded);
+            }
+            _ColorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
 
         public IResult Delete(Color color)
         {
-            _colorDal.Delete(color);
-            return new SuccessResult(Messages.ColorDeleted);
+            _ColorDal.Delete(color);
+            return new SuccessResult();
+        }
+        [ValidationAspect(typeof(ColorValidator))]
+        public IResult Update(Color color)
+        {
+            _ColorDal.Update(color);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
+            return new SuccessDataResult<List<Color>>(_ColorDal.GetAll());
+        }
+
+        public IDataResult<Color> GetByColorId(int colorId)
+        {
+            return new SuccessDataResult<Color>(_ColorDal.Get(c => c.ColorId == colorId));
+        }
+        private IResult CheckIfColorNameExist(string colorName)
+        {
+            var result = _ColorDal.GetAll(c => c.ColorName == colorName).Any();
+            if (result)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckColorExist(int colorId)
+        {
+            var result = _ColorDal.GetAll(c => c.ColorId == colorId).Any();
+            if (!result)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
 
         public IDataResult<Color> GetById(int colorId)
         {
-            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == colorId));
-        }
-
-        public IResult Update(Color color)
-        {
-            _colorDal.Update(color);
-            return new SuccessResult(Messages.ColorUpdated);
+            throw new NotImplementedException();
         }
     }
 }

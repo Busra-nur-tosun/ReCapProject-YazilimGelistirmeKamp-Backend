@@ -52,6 +52,7 @@ namespace WebAPI
             services.AddSingleton<ICarImageDal, EfCarImageDal>();
             services.AddSingleton<ICustomerService, CustomerManager>();
             services.AddSingleton<ICustomerDal, EfCustomerDal>();
+            services.AddSingleton<ICarImageService, CarImageManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddCors();
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
